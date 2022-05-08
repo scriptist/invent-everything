@@ -4,6 +4,8 @@ import ItemMap from "../items/ItemMap";
 import { getOrDefault, save } from "../items/Storage";
 import RandomItemMixer from "./RandomItemMixer";
 
+import { css } from "@emotion/css";
+
 export default function App() {
   const [items, setItems] = useState(() => getOrDefault());
 
@@ -13,16 +15,17 @@ export default function App() {
   }, [items]);
 
   return (
-    <>
-      {Array.from(items.getAll()).map((item) => (
-        <ItemDisplay items={items} item={item} key={item.id} />
-      ))}
-
+    <div className={styles.root}>
       <RandomItemMixer
         addItem={(baseItemData) => setItems(items.addItem(baseItemData))}
         items={items}
       />
-    </>
+      {Array.from(items.getAll())
+        .reverse()
+        .map((item) => (
+          <ItemDisplay items={items} item={item} key={item.id} />
+        ))}
+    </div>
   );
 }
 
@@ -46,3 +49,11 @@ function ItemDisplay({ item, items }: ItemProps) {
     </div>
   );
 }
+
+// Styles
+
+const styles = {
+  root: css`
+    padding: 12px;
+  `,
+};

@@ -45,9 +45,6 @@ export default function RandomItemMixer({ addItem, items }: Props) {
         onChange={(e) => setItemName(e.target.value)}
         value={itemName}
       />
-      <button type="button" onClick={() => randomizeRecipe()}>
-        Skip
-      </button>
     </form>
   );
 }
