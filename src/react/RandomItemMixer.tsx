@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ItemRecipe } from "../items/Item";
 import ItemMap, { AddItemData } from "../items/ItemMap";
 
@@ -12,9 +12,12 @@ export default function RandomItemMixer({ addItem, items }: Props) {
     getRandomNewRecipe(items),
   );
 
-  useEffect(() => {
-    setRecipe(getRandomNewRecipe(items));
-  }, [items]);
+  const randomizeRecipe = useCallback(
+    () => setRecipe(getRandomNewRecipe(items)),
+    [items],
+  );
+
+  useEffect(randomizeRecipe, [randomizeRecipe]);
 
   const [itemName, setItemName] = useState("");
 
@@ -24,6 +27,7 @@ export default function RandomItemMixer({ addItem, items }: Props) {
         e.preventDefault();
 
         if (itemName === "") {
+          randomizeRecipe();
           return;
         }
 
@@ -41,10 +45,7 @@ export default function RandomItemMixer({ addItem, items }: Props) {
         onChange={(e) => setItemName(e.target.value)}
         value={itemName}
       />
-      <button
-        type="button"
-        onClick={() => setRecipe(getRandomNewRecipe(items))}
-      >
+      <button type="button" onClick={() => randomizeRecipe()}>
         Skip
       </button>
     </form>
