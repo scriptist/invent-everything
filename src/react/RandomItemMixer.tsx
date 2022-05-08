@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ItemRecipe } from "../items/Item";
 import ItemMap, { AddItemData } from "../items/ItemMap";
 
@@ -11,6 +11,10 @@ export default function RandomItemMixer({ addItem, items }: Props) {
   const [recipe, setRecipe] = useState<ItemRecipe>(() =>
     getRandomNewRecipe(items),
   );
+
+  useEffect(() => {
+    setRecipe(getRandomNewRecipe(items));
+  }, [items]);
 
   const [itemName, setItemName] = useState("");
 
