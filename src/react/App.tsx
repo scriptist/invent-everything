@@ -14,14 +14,23 @@ export default function App() {
     save(items);
   }, [items]);
 
+  const allItems = items.getAll();
+
+  const recipeCount = Array.from(allItems).reduce(
+    (count, item) => count + item.recipes.length,
+    0,
+  );
+
   return (
     <div className={styles.root}>
-      <h3>{items.getAll().size}</h3>
+      <h3>
+        {allItems.size} items - {recipeCount} recipes
+      </h3>
       <RandomItemMixer
         addItem={(baseItemData) => setItems(items.addItem(baseItemData))}
         items={items}
       />
-      {Array.from(items.getAll())
+      {Array.from(allItems)
         .reverse()
         .map((item) => (
           <ItemDisplay items={items} item={item} key={item.id} />
