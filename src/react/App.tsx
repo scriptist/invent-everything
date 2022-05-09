@@ -16,6 +16,7 @@ export default function App() {
 
   return (
     <div className={styles.root}>
+      <h3>{items.getAll().size}</h3>
       <RandomItemMixer
         addItem={(baseItemData) => setItems(items.addItem(baseItemData))}
         items={items}
@@ -54,6 +55,8 @@ function ItemDisplay({ item, items }: ItemProps) {
 
 const styles = {
   root: css`
+    background: #111;
+    color: #888;
     padding: 12px;
   `,
 };

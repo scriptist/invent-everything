@@ -1,3 +1,4 @@
+import { css } from "@emotion/css";
 import React, { useCallback, useEffect, useState } from "react";
 import { ItemRecipe } from "../items/Item";
 import ItemMap, { AddItemData } from "../items/ItemMap";
@@ -42,6 +43,7 @@ export default function RandomItemMixer({ addItem, items }: Props) {
       {items.get(recipe[0]).name} + {items.get(recipe[1]).name} ={" "}
       <input
         autoFocus
+        className={styles.input}
         onChange={(e) => setItemName(e.target.value)}
         value={itemName}
       />
@@ -64,3 +66,17 @@ function getRandomNewRecipe(items: ItemMap): ItemRecipe {
 function randomRecipe(items: ItemMap): ItemRecipe {
   return [items.getRandom().id, items.getRandom().id];
 }
+
+// Styles
+
+const styles = {
+  input: css`
+    background: transparent;
+    border: 1px solid #888;
+    color: inherit;
+
+    &:focus {
+      border-color: #fff;
+    }
+  `,
+};
